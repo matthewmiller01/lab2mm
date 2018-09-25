@@ -1,0 +1,23 @@
+<%- include('header') %>
+<%- //object template displaying the relevant variables %>
+<h1>Object</h1>
+  <p>Object <%- title %></p>
+  <p>Description: <%- description %></p>
+  <p>Accession Year: <%- accessionyear %></p>
+  <p> Provenance: <%- provenance %></p>
+  <%- //displays the image for the object using its primaryimageurl %>
+  <img id = "newImage" src = "<%- primaryimageurl%>" height = 400 width = 400></img>
+
+  <p>Comments: </p>
+  <%- //form to submit comments that posts back to a commenthandler page also passing in ID of object %>
+  <form action = "/commenthandler/<%- object_id %>", method = "post">
+      <input name = "comment", type="text"></input>
+      <input type = "submit"></input>
+  </form>
+<p></p>
+
+<p> Previous Comments: </p>
+<%- commentString %>
+
+
+<%- include('footer') %>

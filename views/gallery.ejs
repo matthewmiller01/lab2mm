@@ -5,7 +5,9 @@
 <ul>
   <% objects.forEach(object => { %>
   <li>
+  <%- //displays each object with a link to its page and also the image of the object %>
     <a href="/object/<%- object.id %>">Object #<%- object.id %>: <%- object.title %></a>
+    <img id = "newImage" src = "<%-object.primaryimageurl%>" height = 400 width = 400></img>
   </li>
   <% }); %>
 </ul>
