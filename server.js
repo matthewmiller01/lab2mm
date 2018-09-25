@@ -47,8 +47,6 @@ app.get('/object/:object_id', function(req, res){
   fetch(ids)
   .then(response => response.json())
   .then(data =>{
-    console.log("HI");
-    console.log(comments);
     //JavaScript object that will contain comments pertaining to this individual object
     let objectcomms = [];
     //loops through all comments and checks if a given comment matches the ID of this object
@@ -59,20 +57,22 @@ app.get('/object/:object_id', function(req, res){
           objectcomms.push(comment.text)
         }
     })
-    //renders template for the individual object with all relevant variables passed in
+    //creates overall string of all comments to pass in to the template rather than a javascript object
     let commentString = "";
+    //numbers the comments
     let commNumber = 1;
     objectcomms.forEach(comment =>{
-      commentString += commNumber + ". ";
+      commentString += "\n" + commNumber + ". ";
+      //converts the comment to a string to add to the overall list
       commentString+= " " + comment.toString() + " ";
       commNumber++;
     })
+    //renders template for the individual object with all relevant variables passed in
     res.render('object', {title: data.title, description: data.description, accessionyear: data.accessionyear, primaryimageurl : data.primaryimageurl, commentString: commentString, provenance: data.provenance, object_id : data.id});
    })
 });
 //when form submitted, this handles the post request by adding the comment to list using body-parser
 app.post('/commenthandler/:object_id', function(req, res){
-  console.log(req.body);
   //adds the comment and its object ID to the overall list of comments
   comments.push({text: req.body.comment, id: req.params.object_id});
   //creates and concatenates a string for the redirect URL to go back to object page
